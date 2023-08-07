@@ -18,6 +18,8 @@ plot(ax_anim, obs_pos(1),obs_pos(2),'r*')
 [xc, yc] = circle_pts(obs_pos(1),obs_pos(2),obs_r-0.01);
 crc_h = plot(ax_anim, xc, yc, 'r-','LineWidth',1.5);
 
+[xc, yc] = circle_pts(obs_pos_2(1),obs_pos_2(2),obs_r-0.01);
+crc_h_2 = plot(ax_anim, xc, yc, 'r-','LineWidth',1.5);
 
 %joint-space
 x1_span=linspace(x1_min,x1_max,50); 
@@ -45,12 +47,20 @@ ax_proj.YLim = [x2_min,x2_max];
 inp = [x ; repmat(obs_pos,[1,length(x)])];
 val = y_f([inp; sin(inp); cos(inp)]);
 Z_mg = reshape(val,size(X1_mg));
-%distance heatmap
-[~, obs_h] = contourf(ax_proj, X1_mg,X2_mg,Z_mg,100,'LineStyle','none');
+% %distance heatmap
+% [~, obs_h] = contourf(ax_proj, X1_mg,X2_mg,Z_mg,100,'LineStyle','none');
 %nominal ds
 l = streamslice(ax_proj, X1_mg,X2_mg,U_nominal,V_nominal);
 %obstacle shape
 [~, obs2_h] = contour(ax_proj, X1_mg,X2_mg,Z_mg,[obs_r,obs_r+thr],'LineStyle','-','LineColor','k','LineWidth',2);
+
+% obstacle 2
+inp = [x ; repmat(obs_pos_2,[1,length(x)])];
+val = y_f([inp; sin(inp); cos(inp)]);
+Z_mg = reshape(val,size(X1_mg));
+%obstacle shape
+[~, obs2_h] = contour(ax_proj, X1_mg,X2_mg,Z_mg,[obs_r,obs_r+thr],'LineStyle','-','LineColor','k','LineWidth',2);
+
 %attractor
 attr_h = plot(ax_proj, attr(1), attr(2), 'r*');
 fut_traj_h = plot(ax_proj, all_traj(:, 1, 1), all_traj(:, 2, 1),'g-o','LineWidth',2,'MarkerSize',3);

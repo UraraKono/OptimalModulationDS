@@ -1,3 +1,5 @@
+% represent the other robot arm as the combination of spheres
+
 % point stabilization + Multiple shooting + Runge Kutta
 clear all
 close all force
@@ -41,8 +43,11 @@ attr = [-0.8*pi; -0.5*pi];
 attr = [-1.25; -1.1];
 init_pos = [1.75; 1.8];
 
-obs_pos = [9; 0];
-obs_r = 3;
+obs_pos = [9; 1];
+obs_r = 1;
+
+obs_pos_2 = [9; 2];
+obs_r_2 = 1;
 
 %rhs = A*(states - attr) + controls;
 rotm = @(ang)[cos(ang) sin(ang);
